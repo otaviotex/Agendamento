@@ -1,18 +1,25 @@
 import schedule
 import time as tm
 import datetime
+from oia import sms
 
-def tarefa1(anot):
+
+
+def tarefa1(anot, numero):
     print(f"{anot}")
+    p2 = sms(numero)
+    p2.alerta(anot)
     return schedule.CancelJob
 
-def tarefa(compromisso):
+def tarefa(compromisso, celular):
     print(f"{compromisso}")
-
+    p1 = sms(celular)
+    p1.alerta(compromisso)
 
 
 def main():
     comp = input("O que deseja inserir na agenda? ")
+    cel = input("Informe seu numero com o codigo do pais e o ddd: ")
     
     print ("""
         =======================
@@ -37,13 +44,13 @@ def main():
             hoje = datetime.date.today()
             
             if hoje == datetime.date(ano, mes, dia):
-                schedule.every().day.at("00:01").do(tarefa1, comp)
+                schedule.every().day.at("00:01").do(tarefa1, comp, cel)
         
         case 2:
             hrs = int(input("Horas: "))
             min = int(input("Minutos: "))
             hora = f"{hrs:02d}:{min:02d}"
-            schedule.every().day.at(hora).do(tarefa, comp)
+            schedule.every().day.at(hora).do(tarefa, comp, cel)
         
         case 3:
             print(""" 
@@ -61,33 +68,33 @@ def main():
 
             match sem:
                 case 1:
-                    schedule.every().sunday.at("00:01").do(tarefa, comp)
+                    schedule.every().sunday.at("00:01").do(tarefa, comp, cel)
                 case 2:
-                    schedule.every().monday.at("00:01").do(tarefa, comp)
+                    schedule.every().monday.at("00:01").do(tarefa, comp, cel)
                 case 3: 
-                    schedule.every().tuesday.at("00:01").do(tarefa, comp)
+                    schedule.every().tuesday.at("00:01").do(tarefa, comp, cel)
                 case 4: 
-                    schedule.every().wednesday.at("00:01").do(tarefa, comp)
+                    schedule.every().wednesday.at("00:01").do(tarefa, comp, cel)
                 case 5: 
-                    schedule.every().thursday.at("00:01").do(tarefa, comp)
+                    schedule.every().thursday.at("00:01").do(tarefa, comp, cel)
                 case 6: 
-                    schedule.every().friday.at("00:01").do(tarefa, comp)
+                    schedule.every().friday.at("00:01").do(tarefa, comp, cel)
                 case 7: 
-                    schedule.every().saturday.at("00:01").do(tarefa, comp)
+                    schedule.every().saturday.at("00:01").do(tarefa, comp, cel)
         case 4:
-            schedule.every(4).weeks.do(tarefa, comp)
+            schedule.every(4).weeks.do(tarefa, comp, cel)
         case 5:
             mint = int(input("A cada quantos minutos? "))
             if mint == 1:
-                schedule.every().minute.do(tarefa, comp)
+                schedule.every().minute.do(tarefa, comp, cel)
             else:
-                schedule.every(mint).minutes.do(tarefa, comp)
+                schedule.every(mint).minutes.do(tarefa, comp, cel)
         case 6:
             hor = int(input("A cada quantas horas? "))
             if hor == 1:
-                schedule.every().hour.do(tarefa, comp)
+                schedule.every().hour.do(tarefa, comp, cel)
             else:
-                schedule.every(hor).hours.do(tarefa, comp)
+                schedule.every(hor).hours.do(tarefa, comp, cel)
 
 
     while True:
