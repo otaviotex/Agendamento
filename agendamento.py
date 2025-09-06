@@ -1,7 +1,7 @@
 import schedule
 import time as tm
 import datetime
-from oia import sms
+from class_agend import sms
 
 
 
